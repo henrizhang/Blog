@@ -1,0 +1,15 @@
+from flask import Flask, render_template
+app=Flask(__name__)
+@app.route("/")
+def hello_world():
+    return "No Hablo queso"
+@app.route("/hi/")
+def goodbye_world():
+    return "bye"
+@app.route("/bye/")
+def goodhi_world():
+    return "hi"
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
