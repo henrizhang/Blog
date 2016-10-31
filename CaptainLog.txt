@@ -1,0 +1,8 @@
+10/31/16
+
+The MeisterMeisters embark on their task to create a web log. 
+Task:
+   - Make the repo structure (Jason)
+   - Start creating templates (Jason)
+   - Start app.py routes (Gio)
+   - Finish the component map (Vincent)
