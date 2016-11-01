@@ -6,3 +6,10 @@ Task:
    - Start creating templates (Jason)
    - Start app.py routes (Gio)
    - Finish the component map (Vincent)
+
+11/01/16
+
+Gio:
+   - Started work on app.py
+   - Wrote basic addUser and userLogin, still have to test
+
