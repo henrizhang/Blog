@@ -22,3 +22,6 @@ def userLogin(user, password)
     q='SELECT username FROM users'
     if(user in c.execute(q)):
         q='SELECT pass FROM users WITH username='+user+';'
+        if(myHashObj.hexdigest()==c.execute(q)[0]):
+            return True
+    return False
