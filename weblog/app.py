@@ -13,12 +13,14 @@ def send():
 @app.route("/login", methods=['POST'])
 def auth():
     if 'register' in request.form.keys():
-        return addUser(request.form['user'], request.form['pass'])
-    return login(request.form['user'], request.form['pass'])
+        addUser(request.form['user'], request.form['pass'])
+    elif(login(request.form['user'], request.form['pass'])):
+        session['user']=request.form['user']
+    return redirect(url_for('send'))
 
 @app.route("/logout")
 def logout():
-    emptySession()
+    session.pop('user')
     return redirect(url_for('send'))
 
 @app.route("/home")
