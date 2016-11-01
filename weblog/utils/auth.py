@@ -1,9 +1,9 @@
 import hashlib, sqlite3
 
-db=sqlite3.connect('../data/tables.db')
-c=db.cursor()
 
 def addUser(user, password):
+    db=sqlite3.connect('../data/tables.db')
+    c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
     q='SELECT username FROM users'
@@ -14,3 +14,11 @@ def addUser(user, password):
     c.execute(q)
     return True
 
+def userLogin(user, password)
+    db=sqlite3.connect('../data/tables.db')
+    c=db.cursor()
+    myHashObj=hashlib.sha1()
+    myHashObj.update(password)
+    q='SELECT username FROM users'
+    if(user in c.execute(q)):
+        q='SELECT pass FROM users WITH username='+user+';'
