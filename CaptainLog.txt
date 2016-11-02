@@ -13,3 +13,5 @@ Gio:
    - Started work on app.py
    - Wrote basic addUser and userLogin, still have to test
 
+Vincent:
+   - Worked on displaying titles in contributed.py
