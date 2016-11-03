@@ -12,7 +12,7 @@ def addUser(user, password):
     for data in userInfo:
         if (user in data):
             db.close()
-            return "username already in use"
+            return "ERROR: username already in use"
     q='INSERT INTO users VALUES ("'+str(userInfo[len(userInfo)-1][0]+1)+'", "'+user+'", "'+myHashObj.hexdigest()+'")'
     print q
     c.execute(q)
@@ -27,8 +27,10 @@ def userLogin(user, password):
     myHashObj.update(password)
     q='SELECT username FROM users'
     print "hi"
-    for data in c.execute(q):
-        if(user in data):
+    c.execute(q)
+    data=c.fetchall()
+    for stuff in data:
+        if(user in stuff):
             print "bye"
             q='SELECT password FROM users WHERE username = "'+user+'";'
             c.execute(q)

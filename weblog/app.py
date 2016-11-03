@@ -16,7 +16,7 @@ def send():
 
 @app.route("/login")
 def dispLogin():
-    return render_template("login.html")
+    return render_template("login.html", msg=request.args['msg'])
 
 @app.route("/auth", methods=['POST'])
 def auth():
@@ -25,7 +25,7 @@ def auth():
         print msg
     elif(userLogin(request.form['user'], request.form['pass'])):
         session['user']=request.form['user']
-    return redirect(url_for('send')+"?msg="+msg)
+    return redirect(url_for('send')+"?msg=bad user/pass")
 
 @app.route("/logout")
 def logout():
