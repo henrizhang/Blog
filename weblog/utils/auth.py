@@ -12,13 +12,13 @@ def addUser(user, password):
     for data in userInfo:
         if (user in data):
             db.close()
-            return False
+            return "username already in use"
     q='INSERT INTO users VALUES ("'+str(userInfo[len(userInfo)-1][0]+1)+'", "'+user+'", "'+myHashObj.hexdigest()+'")'
     print q
     c.execute(q)
     db.commit()
     db.close()
-    return True
+    return "registration succesful, enter user and pass to login"
 
 def userLogin(user, password):
     db=sqlite3.connect('data/tables.db')

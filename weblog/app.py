@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib, os
 from utils.auth import addUser, userLogin 
@@ -10,6 +9,9 @@ app.secret_key=os.urandom(32)
 def send():
     if 'user' in session:
         return redirect(url_for('dispHome'))
+    if("msg" in request.args.keys()):
+        print "hi"
+        return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
     return redirect(url_for('dispLogin'))
 
 @app.route("/login")
@@ -19,10 +21,11 @@ def dispLogin():
 @app.route("/auth", methods=['POST'])
 def auth():
     if 'register' in request.form.keys():
-        print addUser(request.form['user'], request.form['pass'])
+        msg=addUser(request.form['user'], request.form['pass'])
+        print msg
     elif(userLogin(request.form['user'], request.form['pass'])):
         session['user']=request.form['user']
-    return redirect(url_for('send'))
+    return redirect(url_for('send')+"?msg="+msg)
 
 @app.route("/logout")
 def logout():
