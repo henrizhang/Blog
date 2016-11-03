@@ -25,7 +25,7 @@ def retTitle( userID ):
     listStoryID = retStoryID( userID )
     retList = []
     for storyID in listStoryID:
-        q = "SELECT title FROM stories WHERE storyID = " + str( storyID )
+        q = "SELECT title FROM stories WHERE storyID = " + str( storyID[0] )
         c.execute(q)
         appendList = c.fetchall()
         retList = retList + appendList
