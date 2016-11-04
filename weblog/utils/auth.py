@@ -1,7 +1,11 @@
-import hashlib, sqlite3
+import hashlib, sqlite3, string
 
 
 def addUser(user, password):
+    if (special(user)):
+        return "invlaid character in username"
+    if len(password)<8):
+        return "password too short"
     db=sqlite3.connect('data/tables.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
@@ -43,3 +47,6 @@ def userLogin(user, password):
                 return ['True', str(stuff[0][0])]
     db.close()
     return ['False', 'bad user/pass']
+
+def special(user):
+    return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)

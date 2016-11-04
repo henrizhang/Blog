@@ -31,7 +31,7 @@ def auth():
             msg=info[1]
             session['userID']=request.form['user']
             print "hi"
-    msg=info[1]
+        msg=info[1]
     return redirect(url_for('send')+"?msg="+msg)
 
 @app.route("/logout")
