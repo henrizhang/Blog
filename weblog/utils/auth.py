@@ -35,8 +35,11 @@ def userLogin(user, password):
             q='SELECT password FROM users WHERE username = "'+user+'";'
             c.execute(q)
             password=c.fetchall()
+            q='SELECT userID From users WHERE username = "'+user+'";'
+            c.execute(q)
+            stuff=c.fetchall()
             db.close()
             if(myHashObj.hexdigest()==password[0][0]):
-                return True
+                return ['True', str(stuff[0][0])]
     db.close()
-    return False
+    return ['False', 'bad user/pass']
