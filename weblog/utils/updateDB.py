@@ -1,17 +1,33 @@
 import csv
 import sqlite3
 
-def addToDb(story, update, username):
+def updateStory(story, updateCon, userID):
 	f="../data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
-	q = "INSERT INTO updates VALUES (username)"
+    latestUpdateNumber="SELECT lastUpdate from stories where storyID=story"
+    latestUpdateNumber=c.execute(latestUpdateNumber)
+    #fetching the latest updateNum of the story to know what updateNum the new one will be
+    latestUpdateNumber++
+	q = "INSERT INTO updates VALUES (latestUpdateNumber, story, userID, updateCon)"
 	c.execute(q)
-	q = "UPDATE table_name SET recent=update WHERE storyId=story"
+	#adding 'updates' record
+	q = "UPDATE stories SET lastUpdate=updateCon WHERE storyID=story"
 	c.execute(q)
 
-def addNewStory(content, username):
+	oldContent="SELECT content from stories where storyID=story"
+	oldContent=c.execute(oldContent)
+
+	q = "UPDATE stories SET content=oldContent+updateCon WHERE storyID=story"
+	c.execute(q)
+
+
+	#updating the stories record to reflect the latest change
+
+
+def addNewStory(content, username, title):
 	f="../data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
-    q="INSERT INTO stories VALUES (userID, content, content)"
+    q="INSERT INTO stories VALUES (story, content, title, 1)"
+    c.execute(q)
