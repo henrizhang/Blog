@@ -15,3 +15,15 @@ Gio:
 
 Vincent:
    - Worked on displaying titles in contributed.py
+
+11/04/16
+
+Gio:
+	- Fixed auth.py in utils, began error messages
+
+Vincent:
+	- Updated database structure 
+
+Henry:
+	- Updated updateDB.py in utils
+
