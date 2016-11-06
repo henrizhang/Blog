@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Markup
 import hashlib, os
 from utils.auth import addUser, userLogin 
-from utils.display import retStoryID, retTitle, nretTitle
+from utils.display import retStoryID, retTitle, nretTitle, retUpdate, retStory
 
 app=Flask(__name__)
 app.secret_key=os.urandom(32)
@@ -47,11 +47,26 @@ def dispHome():
     nlistTitles = nretTitle( session[ "userID" ] )
     nstrTitles = ""
     for title in listTitles:
-        strTitles += title[0] + Markup("<br>")
+        strTitles += Markup("<form action=\"/full\" method=\"POST\">")
+        strTitles += Markup("<input type=\"submit\" name=\"read\" value=\"" + title[0] + "\">")
+        strTitles += Markup("</form>")
+        strTitles += Markup("<br>")
     for ntitle in nlistTitles:
-        nstrTitles += ntitle[0] + Markup("<br>")
-    print nstrTitles
+        nstrTitles += Markup("<form action=\"/full\" method=\"POST\">")
+        nstrTitles += Markup("<input type=\"submit\" name=\"add\" value=\"" + ntitle[0] + "\">")
+        nstrTitles += Markup("</form>")
+        nstrTitles += Markup("<br>")
     return render_template("home.html",storyTitles=strTitles,nstoryTitles=nstrTitles)
+
+@app.route("/full", methods=["POST"])
+def dispFull():
+    if "add" in request.form.keys():
+        title = request.form["add"]
+        content = retUpdate( title )
+    else:
+        title = request.form["read"]
+        content = retStory( title )
+    return render_template("add.html",storyTitle=title,storyContent=content)
 
 if __name__ == "__main__":
     app.debug = True

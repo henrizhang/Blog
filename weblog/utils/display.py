@@ -72,5 +72,33 @@ def nretTitle( username ):
 
     return retList
 
+def retUpdate( title ):
+    f="data/tables.db"
+    db=sqlite3.connect(f)
+    c=db.cursor()
+
+    q = "SELECT lastUpdate FROM stories WHERE title = \"" + title + "\";"
+    c.execute(q)
+    retVal = c.fetchall()
+    
+    db.commit()
+    db.close()
+    
+    return retVal[0][0]
+
+def retStory( title ):
+    f="data/tables.db"
+    db=sqlite3.connect(f)
+    c=db.cursor()
+
+    q = "SELECT content FROM stories WHERE title = \"" + title + "\";"
+    c.execute(q)
+    retVal = c.fetchall()
+
+    db.commit()
+    db.close()
+
+    return retVal[0][0]
+
 #test cases
-print nretTitle( "vincent" )
+print retUpdate( "IDK" )

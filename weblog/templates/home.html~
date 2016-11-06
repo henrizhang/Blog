@@ -18,7 +18,7 @@
 	<header> Stories You've Yet To Contribute To </header>
 
 	<p>
-		{{nStoryTitles}}
+		{{nstoryTitles}}
 	</p>
 
 	</body>
