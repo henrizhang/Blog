@@ -4,7 +4,7 @@ import hashlib, sqlite3, string
 def addUser(user, password):
     if (special(user)):
         return "invlaid character in username"
-    if len(password)<8):
+    if (len(password)<8):
         return "password too short"
     db=sqlite3.connect('data/tables.db')
     c=db.cursor()

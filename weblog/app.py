@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib, os
 from utils.auth import addUser, userLogin 
+from utils.display import retStoryID, retTitle, nretTitle
 
 app=Flask(__name__)
 app.secret_key=os.urandom(32)
@@ -41,7 +42,15 @@ def logout():
 
 @app.route("/home")
 def dispHome():
-    return 'hi'
+    listTitles = retTitle( session[ "userID" ] )
+    strTitles = ""
+    nlistTitles = nretTitle( session[ "userID" ] )
+    nstrTitles = ""
+    for title in listTitles:
+        strTitles += title[0] + "\n"
+    for ntitle in nlistTitles:
+        nstrTitles += ntitle[0] + "\n"
+    return render_template("home.html",storyTitles=strTitles,nstoryTitles=nstrTitles)
 
 if __name__ == "__main__":
     app.debug = True

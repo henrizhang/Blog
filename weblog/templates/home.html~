@@ -1,4 +1,28 @@
 <!DOCTYPE html>
 
+	<head>
+		<title> Stories </title>
+	</head>
+
+	<body>
+
+	<header> Stories </header>
+	<br>
+	<br>
+
+	<header> Stories You've Contributed To </header>
+	<p>
+		{{storyTitles}}
+	</p>
+
+	<header> Stories You've Yet To Contribute To </header>
+
+	<p>
+		{{nStoryTitles}}
+	</p>
+
+	</body>
+
 </html>
+
 
