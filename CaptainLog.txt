@@ -19,11 +19,20 @@ Vincent:
 11/04/16
 
 Gio:
-	- Fixed auth.py in utils, began error messages
+   - Fixed auth.py in utils, began error messages
 
 Vincent:
-	- Updated database structure 
+   - Updated database structure 
 
 Henry:
-	- Updated updateDB.py in utils
+   - Updated updateDB.py in utils
 
+11/05/16
+
+Vincent:
+   - Finished display titles
+
+11/06/16
+
+Vincent:
+   - Finished display full stories/updates
