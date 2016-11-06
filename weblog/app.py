@@ -50,6 +50,7 @@ def dispHome():
         strTitles += title[0] + "\n"
     for ntitle in nlistTitles:
         nstrTitles += ntitle[0] + "\n"
+    print nstrTitles
     return render_template("home.html",storyTitles=strTitles,nstoryTitles=nstrTitles)
 
 if __name__ == "__main__":

@@ -47,8 +47,22 @@ def nretTitle( username ):
 
     listStoryID = retStoryID( username )
     retList = []
-    for storyID in listStoryID:
-        q = "SELECT title FROM stories WHERE storyID != " + str( storyID[0] ) + ";"
+
+    q = "SELECT storyID FROM stories;"
+    c.execute(q)
+    fullList = c.fetchall()
+    newList = []
+    for storyID1 in fullList:
+        check = False
+        for storyID2 in listStoryID:
+            if storyID1[0] == storyID2[0]:
+                check = True
+                break
+        if not check:
+            newList.append( storyID1[0] )
+
+    for storyID in newList:
+        q = "SELECT title FROM stories WHERE storyID = " + str( storyID ) + ";"
         c.execute(q)
         appendList = c.fetchall()
         retList = retList + appendList
@@ -59,5 +73,4 @@ def nretTitle( username ):
     return retList
 
 #test cases
-print retStoryID( "vincent" )
-print retTitle( "vincent" )
+print nretTitle( "vincent" )
