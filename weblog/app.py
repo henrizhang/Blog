@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, Markup
 import hashlib, os
 from utils.auth import addUser, userLogin 
 from utils.display import retStoryID, retTitle, nretTitle
@@ -47,9 +47,9 @@ def dispHome():
     nlistTitles = nretTitle( session[ "userID" ] )
     nstrTitles = ""
     for title in listTitles:
-        strTitles += title[0] + "\n"
+        strTitles += title[0] + Markup("<br>")
     for ntitle in nlistTitles:
-        nstrTitles += ntitle[0] + "\n"
+        nstrTitles += ntitle[0] + Markup("<br>")
     print nstrTitles
     return render_template("home.html",storyTitles=strTitles,nstoryTitles=nstrTitles)
 
