@@ -68,6 +68,10 @@ def dispFull():
         content = retStory( title )
     return render_template("add.html",storyTitle=title,storyContent=content)
 
+@app.route("/add", methods=["POST"])
+def addStory():
+    return render_template("newStory.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
