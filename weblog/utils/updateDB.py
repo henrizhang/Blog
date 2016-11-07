@@ -2,13 +2,14 @@ import csv
 import sqlite3
 
 def updateStory(story, updateCon, userID):
-	f="../data/tables.db"
-    db=sqlite3.connect(f)
-    c=db.cursor()
-    latestUpdateNumber="SELECT lastUpdate from stories where storyID=story"
-    latestUpdateNumber=c.execute(latestUpdateNumber)
+	f="data/tables.db"
+	db=sqlite3.connect(f)
+	c=db.cursor()
+
+	latestUpdateNumber="SELECT lastUpdate from stories where storyID=story"
+	latestUpdateNumber=c.execute(latestUpdateNumber)
     #fetching the latest updateNum of the story to know what updateNum the new one will be
-    latestUpdateNumber++
+	latestUpdateNumber+=1
 	q = "INSERT INTO updates VALUES (latestUpdateNumber, story, userID, updateCon)"
 	c.execute(q)
 	#adding 'updates' record
@@ -25,9 +26,16 @@ def updateStory(story, updateCon, userID):
 	#updating the stories record to reflect the latest change
 
 
-def addNewStory(content, username, title):
-	f="../data/tables.db"
-    db=sqlite3.connect(f)
-    c=db.cursor()
-    q="INSERT INTO stories VALUES (story, content, title, 1)"
-    c.execute(q)
+def addNewStory(content, userID, title):
+	f="data/tables.db"
+	db=sqlite3.connect(f)
+	c=db.cursor()
+	q="INSERT INTO stories VALUES (NULL,\""+ content+"\",\""+ title+"\", 1)"
+	c.execute(q)
+	q="SELECT storyID from stories where content=\""+content+"\""
+	q=c.execute(q)
+	storyID=c.fetchall()
+	finalID=0
+	for x in storyID:
+		finalID+=1
+	q="INSERT INTO updates VALUES (1,"+str(finalID)+", "+userID+", \""+content+"\")"

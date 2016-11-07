@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Markup
 import hashlib, os
-from utils.auth import addUser, userLogin 
+from utils.auth import addUser, userLogin
 from utils.display import retStoryID, retTitle, nretTitle, retUpdate, retStory
+from utils.updateDB import updateStory,addNewStory
 
 app=Flask(__name__)
 app.secret_key=os.urandom(32)
@@ -70,8 +71,12 @@ def dispFull():
         content = retStory( title )
     return render_template("add.html",storyTitle=title,storyContent=content)
 
+
 @app.route("/add", methods=["POST", "GET"])
 def addStory():
+    if "title" in request.form.keys() and "content" in request.form.keys():
+        addNewStory(request.form["content"],session['userID'],request.form["title"])
+        return render_template("home.html")
     return render_template("newStory.html")
 
 if __name__ == "__main__":
