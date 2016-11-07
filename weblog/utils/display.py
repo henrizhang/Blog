@@ -76,11 +76,13 @@ def retUpdate( title ):
     f="data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
-
     q = "SELECT lastUpdate FROM stories WHERE title = \"" + title + "\";"
     c.execute(q)
-    retVal = c.fetchall()
-    
+    lastUpdateNum = c.fetchall()
+    print lastUpdateNum
+    q = "SELECT updateContent FROM updates WHERE updateNum = \"" + str(lastUpdateNum) + "\";"
+    c.execute(q)
+    retVal=c.fetchall()
     db.commit()
     db.close()
     if len(retVal)>0:

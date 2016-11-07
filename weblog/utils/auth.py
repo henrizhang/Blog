@@ -17,7 +17,7 @@ def addUser(user, password):
         if (user in data):
             db.close()
             return "ERROR: username already in use"
-    q='INSERT INTO users VALUES ("'+str(userInfo[len(userInfo)-1][0]+1)+'", "'+user+'", "'+myHashObj.hexdigest()+'")'
+    q="INSERT INTO users VALUES (NULL, \""+user+'\", \"'+myHashObj.hexdigest()+'\")'
     print q
     c.execute(q)
     db.commit()
