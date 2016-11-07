@@ -79,6 +79,14 @@ def addStory():
         return render_template("home.html")
     return render_template("newStory.html")
 
+@app.route("/update", methods=["POST", "GET"])
+def update():
+    updateStory(request.form["content"], request.form["update"], session['userID'])
+    print "bet"
+    return redirect(url_for('dispHome'))
+
+
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

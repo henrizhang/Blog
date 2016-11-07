@@ -2,7 +2,7 @@
 
         <head>
         
-          <title> Storytime </title>
+          <title> {{storyTitle}} </title>
         
 	</head>
 
@@ -11,7 +11,17 @@
           <header> {{storyTitle}} </header>
 	  
 	  <p> {{storyContent}} </p>
-        
+
+	<form action="/update" method="post">
+  		Update:<br>
+  		<input type="text" name="update" value="">
+  		<input type="hidden" name="content" value="{{storyContent}}">
+  		<br>
+  		<br>
+	  	<input type="submit" value="Submit">
+	</form>
+
+
         </body>
 
 </html>
