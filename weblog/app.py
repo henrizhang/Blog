@@ -68,7 +68,7 @@ def dispFull():
         content = retStory( title )
     return render_template("add.html",storyTitle=title,storyContent=content)
 
-@app.route("/add", methods=["POST"])
+@app.route("/add", methods=["POST", "GET"])
 def addStory():
     return render_template("newStory.html")
 
