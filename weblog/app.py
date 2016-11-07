@@ -17,6 +17,8 @@ def send():
 
 @app.route("/login")
 def dispLogin():
+    if 'userID' in session:
+        return render_template('alreadyLogged.html', msg=session['userID'])
     if 'msg' in request.args.keys():
         return render_template("login.html", msg=request.args['msg'])
     return render_template("login.html", msg ="")
