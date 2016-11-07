@@ -30,12 +30,14 @@ def addNewStory(content, userID, title):
 	f="data/tables.db"
 	db=sqlite3.connect(f)
 	c=db.cursor()
-	q="INSERT INTO stories VALUES (NULL,\""+ content+"\",\""+ title+"\", 1)"
+	q="INSERT INTO stories VALUES (1,\""+ content+"\",\""+ title+"\", 1)"
 	c.execute(q)
+	print "LMAO IM WEAK"
 	q="SELECT storyID from stories where content=\""+content+"\""
 	q=c.execute(q)
 	storyID=c.fetchall()
 	finalID=0
 	for x in storyID:
 		finalID+=1
-	q="INSERT INTO updates VALUES (1,"+str(finalID)+", "+userID+", \""+content+"\")"
+	q="INSERT INTO updates VALUES (1,"+str(finalID)+", \""+userID+"\", \""+content+"\")"
+	c.execute(q)

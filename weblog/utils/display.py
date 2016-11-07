@@ -83,8 +83,8 @@ def retUpdate( title ):
     
     db.commit()
     db.close()
-    
-    return retVal[0][0]
+    if len(retVal)>0:
+        return retVal[0][0]
 
 def retStory( title ):
     f="data/tables.db"
