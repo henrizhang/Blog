@@ -74,9 +74,11 @@ def dispFull():
     if "add" in request.form.keys():
         id = request.form["add"]
         content = retUpdate( id )
+        title = request.form["submit"]
     else:
         id = request.form["read"]
         content = retStory( id )
+        title = request.form["submit"]
     return render_template("add.html",storyTitle=title,storyContent=content)
 
 
