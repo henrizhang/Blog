@@ -105,6 +105,8 @@ def retUpdate( storyID ):
 
     q = "SELECT lastUpdate FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
+    if (len(c.fetchall())<1):
+        return "error"
     update = c.fetchall()[0][0]
     
     q = "SELECT updateContent FROM updates WHERE storyID = " + str(storyID) + " AND updateNum = " + str(update) + ";"
@@ -124,6 +126,10 @@ def retStory( storyID ):
 
     q = "SELECT content FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
+    if len(c.fetchall())<1:
+        return "error"
+    if len(c.fetchall()[0])<1:
+        return "error"
     retVal = c.fetchall()
 
     db.commit()
