@@ -105,9 +105,8 @@ def retUpdate( storyID ):
 
     q = "SELECT lastUpdate FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
-    if (len(c.fetchall())<1):
-        return "error"
     update = c.fetchall()[0][0]
+    print update
     
     q = "SELECT updateContent FROM updates WHERE storyID = " + str(storyID) + " AND updateNum = " + str(update) + ";"
     c.execute(q)
@@ -138,11 +137,4 @@ def retStory( storyID ):
     return retVal[0][0]
 
 #test cases
-print nretStoryID( "trump" )
-print nretTitle( "trump" )
-print retStoryID( "gio" )
-print retTitle( "gio" )
 print retUpdate( 1 )
-print retUpdate( 2 )
-print retStory( 1 )
-print retStory( 2 )
