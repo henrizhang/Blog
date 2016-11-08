@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Markup
 import hashlib, os
 from utils.auth import addUser, userLogin
-from utils.display import retStoryID, retTitle, nretTitle, retUpdate, retStory
+from utils.display import retStoryID, nretStoryID, retTitle, nretTitle, retUpdate, retStory
 from utils.updateDB import updateStory,addNewStory
 
 app=Flask(__name__)
@@ -46,29 +46,37 @@ def logout():
 @app.route("/home")
 def dispHome():
     listTitles = retTitle( session[ "userID" ] )
+    listStoryID = retStoryID( session[ "userID" ] )
     strTitles = ""
     nlistTitles = nretTitle( session[ "userID" ] )
+    nlistStoryID = nretStoryID( session[ "userID" ] )
     nstrTitles = ""
+    index = 0
     for title in listTitles:
         strTitles += Markup("<form action=\"/full\" method=\"POST\">")
-        strTitles += Markup("<input type=\"submit\" name=\"read\" value=\"" + title[0] + "\">")
+        strTitles += Markup("<input type=\"hidden\" name=\"read\" value=" + str(listStoryID[index][0]) + ">")
+        strTitles += Markup("<input type=\"submit\" name=\"submit\" value=\"" + title[0] + "\">")
         strTitles += Markup("</form>")
         strTitles += Markup("<br>")
+        index += 1
+    index = 0
     for ntitle in nlistTitles:
         nstrTitles += Markup("<form action=\"/full\" method=\"POST\">")
-        nstrTitles += Markup("<input type=\"submit\" name=\"add\" value=\"" + ntitle[0] + "\">")
+        nstrTitles += Markup("<input type=\"hidden\" name=\"add\" value=" + str(nlistStoryID[index]) + ">")
+        nstrTitles += Markup("<input type=\"submit\" name=\"submit\" value=\"" + ntitle[0] + "\">")
         nstrTitles += Markup("</form>")
         nstrTitles += Markup("<br>")
+        index += 1
     return render_template("home.html",storyTitles=strTitles,nstoryTitles=nstrTitles)
 
 @app.route("/full", methods=["POST"])
 def dispFull():
     if "add" in request.form.keys():
-        title = request.form["add"]
-        content = retUpdate( title )
+        id = request.form["add"]
+        content = retUpdate( id )
     else:
-        title = request.form["read"]
-        content = retStory( title )
+        id = request.form["read"]
+        content = retStory( id )
     return render_template("add.html",storyTitle=title,storyContent=content)
 
 

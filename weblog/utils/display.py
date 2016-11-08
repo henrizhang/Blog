@@ -20,6 +20,32 @@ def retStoryID( username ):
 
     return retList
 
+def nretStoryID( username ):
+    f="data/tables.db"
+    db=sqlite3.connect(f)
+    c=db.cursor()
+
+    listStoryID = retStoryID( username )
+    retList = []
+
+    q = "SELECT storyID FROM stories;"
+    c.execute(q)
+    fullList = c.fetchall()
+    newList = []
+    for storyID1 in fullList:
+        check = False
+        for storyID2 in listStoryID:
+            if storyID1[0] == storyID2[0]:
+                check = True
+                break
+        if not check:
+            newList.append( storyID1[0] )
+
+    db.commit()
+    db.close()
+    
+    return newList
+
 #return list of titles that user contributed to
 def retTitle( username ):
     f="data/tables.db"
@@ -72,28 +98,30 @@ def nretTitle( username ):
 
     return retList
 
-def retUpdate( title ):
+def retUpdate( storyID ):
     f="data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
-    q = "SELECT lastUpdate FROM stories WHERE title = \"" + title + "\";"
+
+    q = "SELECT lastUpdate FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
-    lastUpdateNum = c.fetchall()
-    print lastUpdateNum
-    q = "SELECT updateContent FROM updates WHERE updateNum = \"" + str(lastUpdateNum) + "\";"
+    update = c.fetchall()[0][0]
+    
+    q = "SELECT updateContent FROM updates WHERE storyID = " + str(storyID) + " AND updateNum = " + str(update) + ";"
     c.execute(q)
-    retVal=c.fetchall()
+    retVal = c.fetchall()[0][0]
+
     db.commit()
     db.close()
-    if len(retVal)>0:
-        return retVal[0][0]
+    
+    return retVal
 
-def retStory( title ):
+def retStory( storyID ):
     f="data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
 
-    q = "SELECT content FROM stories WHERE title = \"" + title + "\";"
+    q = "SELECT content FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
     retVal = c.fetchall()
 
@@ -103,4 +131,11 @@ def retStory( title ):
     return retVal[0][0]
 
 #test cases
-print retUpdate( "IDK" )
+print nretStoryID( "trump" )
+print nretTitle( "trump" )
+print retStoryID( "gio" )
+print retTitle( "gio" )
+print retUpdate( 1 )
+print retUpdate( 2 )
+print retStory( 1 )
+print retStory( 2 )
