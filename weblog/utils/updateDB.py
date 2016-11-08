@@ -45,10 +45,13 @@ def updateStory(content, updateCon, userID):
 	#updating the stories record to reflect the latest change
 
 
-def addNewStory(content, userID, title):
+def addNewStory(content, username, title):
 	f="data/tables.db"
 	db=sqlite3.connect(f)
 	c=db.cursor()
+	q="SELECT userID from users where username=\""+username+"\""
+	c.execute(q)
+	userID=c.fetchall()[0][0]
 	q="INSERT INTO stories VALUES (NULL,\""+ content+"\",\""+ title+"\", 1);"
 	c.execute(q)
 	print "LMAO IM WEAK"
@@ -58,6 +61,6 @@ def addNewStory(content, userID, title):
 	finalID=0
 	for x in storyID:
 		finalID+=int(x[0])
-	q="INSERT INTO updates VALUES (1,"+str(finalID)+", \""+userID+"\", \""+content+"\");"
+	q="INSERT INTO updates VALUES (1,"+str(finalID)+", \""+str(userID)+"\", \""+content+"\");"
 	c.execute(q)
 	db.commit()

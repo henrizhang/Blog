@@ -86,7 +86,8 @@ def dispFull():
 def addStory():
     if "title" in request.form.keys() and "content" in request.form.keys():
         addNewStory(request.form["content"],session['userID'],request.form["title"])
-        return render_template("home.html")
+        print session['userID']+"bruh!!!"
+        return redirect(url_for('dispHome'))
     return render_template("newStory.html")
 
 @app.route("/update", methods=["POST", "GET"])

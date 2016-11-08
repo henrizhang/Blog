@@ -116,6 +116,7 @@ def retUpdate( storyID ):
     
     return retVal
 
+
 def retStory( storyID ):
     f="data/tables.db"
     db=sqlite3.connect(f)
