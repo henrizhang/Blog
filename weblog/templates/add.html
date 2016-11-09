@@ -1,31 +1,81 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ 
+<!-- If IE use the latest rendering engine -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+<!-- Set the page to the width of the device and set the zoom level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+<title> A Better Blog </title>
 
-        <head>
-        
-          <title> {{storyTitle}} </title>
-        
-	</head>
 
-        <body>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-          <header> {{storyTitle}} </header>
-	  
-	  <p> {{storyContent}} </p>
+<style>
+.jumbotron{
+    background-color:#2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs {
+    margin-bottom: 0;
+}
 
-	   <form action="/update" method="post">
-        {{hasUpdate|safe}}
-        {{update|safe}}
-        <input type="hidden" name="id" value="{{storyID}}">
-        <input type="hidden" name="content" value="{{storyContent}}">
-        <br>
-        <br>
-      {{form|safe}}
-        
-    </form>
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+</style>
+
+
+</head>
+
+
+<div class="page-header">
+<center><h1>Welcome to the Blog-hamas!</h1></center>
+</div> 
+
+<body>
+<center>  
+  <h1> {{storyTitle}} </h1>
+  </center>
+  <p> {{storyContent}} </p>
+  
+  <form action="/update" method="post">
+    {{hasUpdate|safe}}
+    {{update|safe}}
+    <input type="hidden" name="id" value="{{storyID}}">
+    <input type="hidden" name="content" value="{{storyContent}}">
+    <br>
+    <br>
+    {{form|safe}}
+    
+  </form>
 
 
         </body>
 
+   <footer class="footer">
+      <div class="container">
+<center>
+<br>
+        <p class="text-muted">Created by the <b>MeisterMeisters</b>.</p>
+</center>
+      </div>
+    </footer>
 </html>
 
 

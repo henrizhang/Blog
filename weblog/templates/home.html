@@ -11,16 +11,16 @@
 <title> A Better Blog </title>
 
 
-
-
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 <style>
+
 .jumbotron{
     background-color:#2E2D88;
     color:white;
 }
 /* Adds borders for tabs */
+
 .tab-content {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -30,39 +30,65 @@
 .nav-tabs {
     margin-bottom: 0;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
 </style>
 
 </head>
 
 
-<div class="page-header">
-<h1>Welcome to the Blog-hamas!</h1>
+<div class="page-header"><center>
+<h1>Welcome to the Blog-hamas!</h1></center>
 </div> 
 
   
-  <body>
+  <body> 
     <br>
-    <a href=/logout> Logout </a>
-    
-    <header> Stories </header>
+
+<center>
+<form action=/logout>
+    <input type="submit" type = "button" class = "btn btn-danger"  value="Logout" />
+</form>
+
+    <h2> Stories </h2>
+
     <br>
+    
+    <h3> Stories You've Contributed To </h3>
+<p>
+  {{storyTitles}}
+</p>
+
+<h3> Stories You've Yet To Contribute To </h3>
+    
+<p>
+  {{nstoryTitles}}
+</p>
     <br>
     
-    <header> Stories You've Contributed To </header>
-    <p>
-      {{storyTitles}}
-    </p>
+    <form action=/add>
+      <input type="submit" type = "button" class = "btn btn-success"  value="Add New Story" />
+    </form>
     
-    <header> Stories You've Yet To Contribute To </header>
-    
-    <p>
-      {{nstoryTitles}}
-    </p>
-    <br>
-    <a href=/add> Add New Story </a>
-    
+    </center>
   </body>
   
+
+   <footer class="footer">
+      <div class="container">
+<center>
+<br>
+        <p class="text-muted">Created by the <b>MeisterMeisters</b>.</p>
+</center>
+      </div>
+    </footer>
   
 </html>
 

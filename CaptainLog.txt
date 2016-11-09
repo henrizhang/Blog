@@ -36,3 +36,26 @@ Vincent:
 
 Vincent:
    - Finished display full stories/updates
+
+11/07/16
+
+Vincent:
+   - Updated the returned updated and returned story
+
+Henry:
+   - Added new story template
+   - Changed databased structure to have primary key
+
+Gio:
+   - Added logout functionality
+
+11/08/16
+
+Jason:
+   - Started CSS
+
+Henry:
+   - Debugging the program
+
+Vincent:
+   - Fixed the SQL to Python code
