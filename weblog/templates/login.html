@@ -30,6 +30,15 @@
 .nav-tabs {
     margin-bottom: 0;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
 </style>
 
 </head>
@@ -41,16 +50,35 @@
 
   <body>
     <center><h3>{{msg}}</h3></center>
-    
+<center>
     <form action="/auth" method="POST">
-      Username: <input type="text" name="user">
+
+      <div class="container">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon">Username:</span>
+          <input type="text" class="form-control" name="user">
+        </div><br>
+
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon">Password:</span>
+          <input type="password" class="form-control" name="pass">
+        </div><br>
       <br>
-      Password: <input type="password" name="pass">
-      <br>
-      <input type="submit" name="login" value="login">
-      <br>
-      <input type="submit" name="register" value="register">
+      <input type="submit" class="btn btn-default" name="login" value="Login">
+      <input type="submit" class="btn btn-default" name="register" value="Register">
+</center>
     </form>
+
+
+   <footer class="footer">
+      <div class="container">
+<center>
+<br>
+        <p class="text-muted">Created by the <b>MeisterMeisters</b>.</p>
+</center>
+      </div>
+    </footer>
+
 
   </body>
 </html>
