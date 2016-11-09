@@ -1,42 +1,36 @@
 import csv
 import sqlite3
 
-def updateStory(content, updateCon, userID):
+
+def updateStory(storyID, updateCon, userID):
+	print storyID
+	print "wtf"
+	updateCon=updateCon+"\n"
 	f="data/tables.db"
 	db=sqlite3.connect(f)
 	c=db.cursor()
-	q="SELECT storyID from stories where content=\""+content+"\";"
-	print q
+	q="SELECT userID from users where username=\""+userID+"\""
 	c.execute(q)
-	storyID=c.fetchall()
-	print storyID
-	finalID=0
-	for x in storyID:
-		finalID+=x
-	print finalID
-	q="SELECT lastUpdate from stories where storyID=\""+str(finalID)+"\";"
-	print q
+	userID=c.fetchall()[0][0]
+	#fixing userID disrepancy
+
+	q="SELECT lastUpdate from stories where storyID=\""+str(storyID)+"\";"
 	q=c.execute(q)
-	latestUpdateNumber=c.fetchall()
-	print latestUpdateNumber
-    #fetching the latest updateNum of the story to know what updateNum the new one will be
+	latestUpdateNumber=c.fetchall()[0][0]
+    #fetching the latest updateNum of the story to know what updateNum of the new one will be
 	latestUpdateNumber+=1
-	q = "INSERT INTO updates VALUES (\""+str(latestUpdateNumber)+"\", "+str(finalID)+", \""+userID+"\", \""+updateCon+"\");"
-	print q
+
+	q = "INSERT INTO updates VALUES (\""+str(latestUpdateNumber)+"\", "+str(storyID)+", \""+str(userID)+"\", \""+updateCon+"\");"
 	c.execute(q)
 	#adding 'updates' record
-	q = "UPDATE stories SET lastUpdate=\""+updateCon+"\" WHERE storyID="+str(finalID)+";"
+
+	q = "UPDATE stories SET lastUpdate=\""+str(latestUpdateNumber)+"\" WHERE storyID="+str(storyID)+";"
 	c.execute(q)
 
-	q="SELECT content from stories where storyID=\""+str(finalID)+"\";"
-	print q
+	q="SELECT content from stories where storyID=\""+str(storyID)+"\";"
 	q=c.execute(q)
-	oldContentL=c.fetchall()
-	oldContent=""
-	for x in oldContentL:
-		oldContent+=x
-	q = "UPDATE stories SET content=\""+oldContent+updateCon+"\" WHERE storyID="+str(finalID)+";"
-	print q
+	oldContent=c.fetchall()[0][0]
+	q = "UPDATE stories SET content=\""+oldContent+updateCon+"\" WHERE storyID="+str(storyID)+";"
 	c.execute(q)
 	db.commit()
 
@@ -54,7 +48,10 @@ def addNewStory(content, username, title):
 	userID=c.fetchall()[0][0]
 	q="INSERT INTO stories VALUES (NULL,\""+ content+"\",\""+ title+"\", 1);"
 	c.execute(q)
-	print "LMAO IM WEAK"
+	print content
+	print "this is content"
+	print title
+	print "this is title"
 	q="SELECT storyID from stories where content=\""+content+"\";"
 	q=c.execute(q)
 	storyID=c.fetchall()

@@ -12,14 +12,16 @@
 	  
 	  <p> {{storyContent}} </p>
 
-	<form action="/update" method="post">
-  		Update:<br>
-  		<input type="text" name="update" value="">
-  		<input type="hidden" name="content" value="{{storyContent}}">
-  		<br>
-  		<br>
-	  	<input type="submit" value="Submit">
-	</form>
+	   <form action="/update" method="post">
+        {{hasUpdate|safe}}
+        {{update|safe}}
+        <input type="hidden" name="id" value="{{storyID}}">
+        <input type="hidden" name="content" value="{{storyContent}}">
+        <br>
+        <br>
+      {{form|safe}}
+        
+    </form>
 
 
         </body>

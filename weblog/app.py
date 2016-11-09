@@ -3,7 +3,6 @@ import hashlib, os
 from utils.auth import addUser, userLogin
 from utils.display import retStoryID, nretStoryID, retTitle, nretTitle, retUpdate, retStory
 from utils.updateDB import updateStory,addNewStory
-
 app=Flask(__name__)
 app.secret_key=os.urandom(32)
 
@@ -61,7 +60,7 @@ def dispHome():
         index += 1
     index = 0
     for ntitle in nlistTitles:
-        nstrTitles += Markup("<form action=\"/full\" method=\"POST\">")
+        nstrTitles += Markup("<form action=\"/last\" method=\"POST\">")
         nstrTitles += Markup("<input type=\"hidden\" name=\"add\" value=" + str(nlistStoryID[index]) + ">")
         nstrTitles += Markup("<input type=\"submit\" name=\"submit\" value=\"" + ntitle[0] + "\">")
         nstrTitles += Markup("</form>")
@@ -71,15 +70,17 @@ def dispHome():
 
 @app.route("/full", methods=["POST"])
 def dispFull():
-    if "add" in request.form.keys():
-        id = request.form["add"]
-        content = retUpdate( id )
-        title = request.form["submit"]
-    else:
-        id = request.form["read"]
-        content = retStory( id )
-        title = request.form["submit"]
-    return render_template("add.html",storyTitle=title,storyContent=content)
+    id = request.form["read"]
+    content = retStory( id )
+    title = request.form["submit"]
+    return render_template("add.html",storyTitle=title, hasUpdate="", storyContent=content, update="", storyID=id, form="")
+
+@app.route("/last", methods=["POST"])
+def dispLast():
+    idd = request.form["add"]
+    content = retUpdate( idd )
+    title = request.form["submit"]
+    return render_template("add.html",storyTitle=title, hasUpdate="Update:<br>", storyContent=content, update="<input type=\"text\" name=\"update\" value=\"\">", storyID=idd,  form="<input type=\"submit\" value=\"Submit\">")
 
 
 @app.route("/add", methods=["POST", "GET"])
@@ -92,8 +93,10 @@ def addStory():
 
 @app.route("/update", methods=["POST", "GET"])
 def update():
-    updateStory(request.form["content"], request.form["update"], session['userID'])
-    print "bet"
+    storyID=request.form["id"]
+    print storyID
+    print "error could be here?"
+    updateStory(storyID, request.form["update"], session['userID'])
     return redirect(url_for('dispHome'))
 
 

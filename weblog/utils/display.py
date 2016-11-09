@@ -99,23 +99,22 @@ def nretTitle( username ):
     return retList
 
 def retUpdate( storyID ):
+
     f="data/tables.db"
     db=sqlite3.connect(f)
     c=db.cursor()
-
-    q = "SELECT lastUpdate FROM stories WHERE storyID = " + str(storyID) + ";"
+    q = "SELECT lastUpdate FROM stories WHERE storyID = " + str(storyID) + ";"  
     c.execute(q)
     update = c.fetchall()[0][0]
     print update
-    
-    q = "SELECT updateContent FROM updates WHERE storyID = " + str(storyID) + " AND updateNum = " + str(update) + ";"
+    print "that's bait"
+    q="SELECT updateContent FROM updates where updateNum="+str(update) 
     c.execute(q)
-    retVal = c.fetchall()[0][0]
-
+    updateContent=c.fetchall()[0][0]
     db.commit()
     db.close()
     
-    return retVal
+    return updateContent
 
 
 def retStory( storyID ):
@@ -125,10 +124,6 @@ def retStory( storyID ):
 
     q = "SELECT content FROM stories WHERE storyID = " + str(storyID) + ";"
     c.execute(q)
-    if len(c.fetchall())<1:
-        return "error"
-    if len(c.fetchall()[0])<1:
-        return "error"
     retVal = c.fetchall()
 
     db.commit()
@@ -137,4 +132,3 @@ def retStory( storyID ):
     return retVal[0][0]
 
 #test cases
-print retUpdate( 1 )
